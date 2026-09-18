@@ -1,0 +1,1241 @@
+/*
+============================================================
+LUMORA CLOCK
+Aesthetic Digital Clock for Notion
+Designed & Developed by Bobo Technologies Limited
+============================================================
+*/
+
+
+/* ==========================================================
+   ROOT VARIABLES
+   ========================================================== */
+
+:root {
+
+    --font-primary:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    --transition-fast:
+        180ms ease;
+
+    --transition:
+        300ms ease;
+
+    --transition-slow:
+        600ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 28px;
+
+    --shadow:
+        0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+
+/* ==========================================================
+   THEME VARIABLES
+   ========================================================== */
+
+
+/* Midnight */
+
+body[data-theme="midnight"] {
+
+    --background:
+        #090d18;
+
+    --card:
+        #111827;
+
+    --card-secondary:
+        #182235;
+
+    --text:
+        #f8fafc;
+
+    --muted:
+        #94a3b8;
+
+    --border:
+        rgba(255, 255, 255, 0.08);
+
+    --accent:
+        #a78bfa;
+
+    --accent-secondary:
+        #818cf8;
+
+    --glow:
+        rgba(167, 139, 250, 0.25);
+}
+
+
+/* Cloud */
+
+body[data-theme="cloud"] {
+
+    --background:
+        #f5f7fb;
+
+    --card:
+        #ffffff;
+
+    --card-secondary:
+        #f1f5f9;
+
+    --text:
+        #172033;
+
+    --muted:
+        #64748b;
+
+    --border:
+        rgba(15, 23, 42, 0.08);
+
+    --accent:
+        #6366f1;
+
+    --accent-secondary:
+        #8b5cf6;
+
+    --glow:
+        rgba(99, 102, 241, 0.15);
+}
+
+
+/* Lavender */
+
+body[data-theme="lavender"] {
+
+    --background:
+        #f5f3ff;
+
+    --card:
+        #ffffff;
+
+    --card-secondary:
+        #ede9fe;
+
+    --text:
+        #2e1065;
+
+    --muted:
+        #7c3aed;
+
+    --border:
+        rgba(124, 58, 237, 0.12);
+
+    --accent:
+        #8b5cf6;
+
+    --accent-secondary:
+        #c084fc;
+
+    --glow:
+        rgba(139, 92, 246, 0.18);
+}
+
+
+/* Sage */
+
+body[data-theme="sage"] {
+
+    --background:
+        #f2f7f3;
+
+    --card:
+        #ffffff;
+
+    --card-secondary:
+        #e7f1e9;
+
+    --text:
+        #17351f;
+
+    --muted:
+        #66816e;
+
+    --border:
+        rgba(23, 53, 31, 0.09);
+
+    --accent:
+        #4f8a61;
+
+    --accent-secondary:
+        #82a98b;
+
+    --glow:
+        rgba(79, 138, 97, 0.16);
+}
+
+
+/* Rose */
+
+body[data-theme="rose"] {
+
+    --background:
+        #fff5f7;
+
+    --card:
+        #ffffff;
+
+    --card-secondary:
+        #fce7ec;
+
+    --text:
+        #4a1620;
+
+    --muted:
+        #9f6470;
+
+    --border:
+        rgba(159, 100, 112, 0.12);
+
+    --accent:
+        #e87991;
+
+    --accent-secondary:
+        #f0a1b2;
+
+    --glow:
+        rgba(232, 121, 145, 0.18);
+}
+
+
+/* ==========================================================
+   RESET
+   ========================================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+
+button,
+input {
+    font: inherit;
+}
+
+
+/* ==========================================================
+   BODY
+   ========================================================== */
+
+body {
+
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: var(--font-primary);
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            var(--glow),
+            transparent 55%
+        ),
+        var(--background);
+
+    color: var(--text);
+
+    transition:
+        background var(--transition),
+        color var(--transition);
+
+    overflow: hidden;
+}
+
+
+/* ==========================================================
+   MAIN WRAPPER
+   ========================================================== */
+
+.clock-wrapper {
+
+    width: min(
+        100%,
+        620px
+    );
+
+    padding: 20px;
+}
+
+
+/* ==========================================================
+   CLOCK CARD
+   ========================================================== */
+
+.clock-card {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 340px;
+
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius-lg);
+
+    background:
+        var(--card);
+
+    box-shadow:
+        var(--shadow);
+
+    overflow: hidden;
+
+    transition:
+        background var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+
+
+/* ==========================================================
+   TOP ACCENT
+   ========================================================== */
+
+.clock-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 10%;
+
+    width: 80%;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--accent),
+            transparent
+        );
+
+    opacity: 0.8;
+}
+
+
+/* ==========================================================
+   HEADER
+   ========================================================== */
+
+.clock-header {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 35px;
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.brand-mark {
+
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 50%;
+
+    background:
+        var(--card-secondary);
+
+    color:
+        var(--accent);
+
+    font-size: 17px;
+
+    box-shadow:
+        0 0 20px var(--glow);
+}
+
+
+.brand-text {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.brand-name {
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.18em;
+}
+
+
+.brand-subtitle {
+
+    font-size: 8px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.16em;
+
+    color:
+        var(--muted);
+}
+
+
+/* ==========================================================
+   SETTINGS BUTTON
+   ========================================================== */
+
+.settings-button {
+
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+
+    place-items: center;
+
+    border: 1px solid var(--border);
+
+    border-radius: 50%;
+
+    background:
+        var(--card-secondary);
+
+    color:
+        var(--muted);
+
+    cursor: pointer;
+
+    transition:
+        transform var(--transition-fast),
+        color var(--transition-fast),
+        background var(--transition-fast);
+}
+
+
+.settings-button:hover {
+
+    color:
+        var(--accent);
+
+    transform:
+        rotate(45deg);
+}
+
+
+.settings-button span {
+
+    font-size: 15px;
+}
+
+
+/* ==========================================================
+   CLOCK DISPLAY
+   ========================================================== */
+
+.clock-display {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: baseline;
+    justify-content: center;
+
+    margin-top: 10px;
+
+    user-select: none;
+}
+
+
+.time {
+
+    font-size:
+        clamp(
+            58px,
+            12vw,
+            105px
+        );
+
+    line-height: 0.95;
+
+    font-weight: 700;
+
+    letter-spacing:
+        -0.07em;
+
+    font-variant-numeric:
+        tabular-nums;
+
+    color:
+        var(--text);
+
+    text-shadow:
+        0 0 35px var(--glow);
+
+    transition:
+        color var(--transition),
+        text-shadow var(--transition);
+}
+
+
+.seconds {
+
+    width: 44px;
+
+    margin-left: 7px;
+
+    font-size:
+        clamp(
+            18px,
+            4vw,
+            28px
+        );
+
+    font-weight: 500;
+
+    color:
+        var(--muted);
+
+    font-variant-numeric:
+        tabular-nums;
+
+    transition:
+        opacity var(--transition),
+        color var(--transition);
+}
+
+
+.ampm {
+
+    position: absolute;
+
+    right: 0;
+
+    bottom: 7px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.15em;
+
+    color:
+        var(--accent);
+
+    transition:
+        opacity var(--transition);
+}
+
+
+/* ==========================================================
+   DATE
+   ========================================================== */
+
+.date-container {
+
+    margin-top: 30px;
+
+    text-align: center;
+}
+
+
+.day {
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.03em;
+}
+
+
+.date {
+
+    margin-top: 6px;
+
+    font-size: 12px;
+
+    color:
+        var(--muted);
+
+    letter-spacing: 0.03em;
+}
+
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+
+.clock-footer {
+
+    margin-top: auto;
+
+    padding-top: 30px;
+
+    text-align: center;
+
+    font-size: 9px;
+
+    color:
+        var(--muted);
+
+    letter-spacing: 0.04em;
+}
+
+
+.clock-footer strong {
+
+    color:
+        var(--text);
+
+    font-weight: 600;
+}
+
+
+/* ==========================================================
+   SETTINGS PANEL
+   ========================================================== */
+
+.settings-panel {
+
+    position: absolute;
+
+    z-index: 10;
+
+    inset: 0;
+
+    padding: 30px;
+
+    background:
+        color-mix(
+            in srgb,
+            var(--card) 96%,
+            transparent
+        );
+
+    backdrop-filter:
+        blur(20px);
+
+    -webkit-backdrop-filter:
+        blur(20px);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        translateY(12px);
+
+    transition:
+        opacity var(--transition),
+        visibility var(--transition),
+        transform var(--transition);
+}
+
+
+.settings-panel.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateY(0);
+}
+
+
+.settings-header {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 28px;
+
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+
+.close-settings {
+
+    width: 32px;
+    height: 32px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background:
+        var(--card-secondary);
+
+    color:
+        var(--muted);
+
+    font-size: 20px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+
+.close-settings:hover {
+
+    color:
+        var(--accent);
+
+    transform:
+        rotate(90deg);
+}
+
+
+/* ==========================================================
+   SETTINGS GROUP
+   ========================================================== */
+
+.setting-group {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 54px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+
+.setting-group:last-child {
+
+    border-bottom: 0;
+}
+
+
+.setting-group > label:first-child {
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* ==========================================================
+   OPTION BUTTONS
+   ========================================================== */
+
+.option-buttons {
+
+    display: flex;
+
+    gap: 5px;
+
+    flex-wrap: wrap;
+
+    justify-content: flex-end;
+}
+
+
+.option-button {
+
+    padding:
+        7px 10px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius-sm);
+
+    background:
+        transparent;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast);
+}
+
+
+.option-button:hover,
+.option-button.active {
+
+    background:
+        var(--accent);
+
+    border-color:
+        var(--accent);
+
+    color:
+        #ffffff;
+}
+
+
+/* ==========================================================
+   TOGGLE
+   ========================================================== */
+
+.toggle {
+
+    position: relative;
+
+    width: 42px;
+    height: 24px;
+
+    display: block;
+
+    cursor: pointer;
+}
+
+
+.toggle input {
+
+    opacity: 0;
+
+    width: 0;
+    height: 0;
+}
+
+
+.toggle-slider {
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 20px;
+
+    background:
+        var(--card-secondary);
+
+    border:
+        1px solid var(--border);
+
+    transition:
+        background var(--transition-fast);
+}
+
+
+.toggle-slider::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 17px;
+    height: 17px;
+
+    left: 3px;
+    top: 2px;
+
+    border-radius: 50%;
+
+    background:
+        var(--muted);
+
+    transition:
+        transform var(--transition-fast),
+        background var(--transition-fast);
+}
+
+
+.toggle input:checked + .toggle-slider {
+
+    background:
+        var(--accent);
+}
+
+
+.toggle input:checked + .toggle-slider::before {
+
+    transform:
+        translateX(17px);
+
+    background:
+        #ffffff;
+}
+
+
+/* ==========================================================
+   THEMES
+   ========================================================== */
+
+.theme-options {
+
+    display: flex;
+
+    gap: 7px;
+
+    align-items: center;
+}
+
+
+.theme-button {
+
+    width: 25px;
+    height: 25px;
+
+    padding: 0;
+
+    border: 2px solid transparent;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    transition:
+        transform var(--transition-fast),
+        border-color var(--transition-fast);
+}
+
+
+.theme-button:hover {
+
+    transform:
+        scale(1.15);
+}
+
+
+.theme-button.active {
+
+    border-color:
+        var(--text);
+
+    transform:
+        scale(1.12);
+}
+
+
+.theme-button[data-theme="midnight"] {
+
+    background:
+        #111827;
+}
+
+
+.theme-button[data-theme="cloud"] {
+
+    background:
+        #e2e8f0;
+}
+
+
+.theme-button[data-theme="lavender"] {
+
+    background:
+        #a78bfa;
+}
+
+
+.theme-button[data-theme="sage"] {
+
+    background:
+        #78a184;
+}
+
+
+.theme-button[data-theme="rose"] {
+
+    background:
+        #e87991;
+}
+
+
+.theme-button[data-theme="auto"] {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 50%,
+            #111827 50%
+        );
+
+    color:
+        #6366f1;
+
+    font-size: 8px;
+
+    font-weight: 800;
+}
+
+
+/* ==========================================================
+   MINIMAL MODE
+   ========================================================== */
+
+body.minimal-mode .clock-header {
+
+    display: none;
+}
+
+
+body.minimal-mode .clock-footer {
+
+    display: none;
+}
+
+
+body.minimal-mode .clock-card {
+
+    min-height: 200px;
+
+    justify-content: center;
+}
+
+
+body.minimal-mode .date-container {
+
+    margin-top: 15px;
+}
+
+
+/* ==========================================================
+   GLASS MODE
+   ========================================================== */
+
+body.glass-mode {
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            var(--glow),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            var(--glow),
+            transparent 35%
+        ),
+        var(--background);
+}
+
+
+body.glass-mode .clock-card {
+
+    background:
+        color-mix(
+            in srgb,
+            var(--card) 45%,
+            transparent
+        );
+
+    backdrop-filter:
+        blur(24px);
+
+    -webkit-backdrop-filter:
+        blur(24px);
+
+    box-shadow:
+        0 30px 80px
+        rgba(0, 0, 0, 0.15);
+}
+
+
+/* ==========================================================
+   ANIMATION
+   ========================================================== */
+
+@keyframes fadeClock {
+
+    0% {
+
+        opacity: 0.65;
+
+        transform:
+            translateY(2px);
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+.time.tick {
+
+    animation:
+        fadeClock 400ms ease;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 520px) {
+
+    .clock-wrapper {
+
+        padding: 10px;
+    }
+
+
+    .clock-card {
+
+        padding: 22px;
+
+        min-height: 300px;
+    }
+
+
+    .clock-header {
+
+        margin-bottom: 28px;
+    }
+
+
+    .ampm {
+
+        right: 5px;
+
+        bottom: 2px;
+    }
+
+
+    .settings-panel {
+
+        padding: 22px;
+    }
+}
+
+
+@media (max-width: 390px) {
+
+    .clock-card {
+
+        padding: 18px;
+    }
+
+
+    .time {
+
+        font-size: 52px;
+    }
+
+
+    .seconds {
+
+        width: 32px;
+
+        margin-left: 4px;
+
+        font-size: 16px;
+    }
+
+
+    .setting-group {
+
+        min-height: 60px;
+    }
+}
+
+
+/* ==========================================================
+   ACCESSIBILITY
+   ========================================================== */
+
+button:focus-visible,
+input:focus-visible {
+
+    outline:
+        2px solid var(--accent);
+
+    outline-offset:
+        3px;
+}
+
+
+/* ==========================================================
+   REDUCED MOTION
+   ========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.01ms !important;
+    }
+}
