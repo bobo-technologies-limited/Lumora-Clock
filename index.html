@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Lumora Clock — an aesthetic digital clock designed for Notion dashboards."
+    >
+
+    <meta
+        name="theme-color"
+        content="#0f172a"
+    >
+
+    <title>Lumora Clock</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!--
+    ============================================================
+    LUMORA CLOCK
+    Aesthetic Digital Clock for Notion
+    Designed & Developed by Bobo Technologies Limited
+    ============================================================
+    -->
+
+    <main class="clock-wrapper">
+
+        <section
+            class="clock-card"
+            id="clockCard"
+            aria-label="Lumora Digital Clock"
+        >
+
+            <!-- Header -->
+            <header class="clock-header">
+
+                <div class="brand">
+                    <span class="brand-mark">✦</span>
+
+                    <div class="brand-text">
+                        <span class="brand-name">
+                            LUMORA
+                        </span>
+
+                        <span class="brand-subtitle">
+                            DIGITAL CLOCK
+                        </span>
+                    </div>
+                </div>
+
+                <button
+                    class="settings-button"
+                    id="settingsButton"
+                    type="button"
+                    aria-label="Open clock settings"
+                    aria-expanded="false"
+                >
+                    <span>⚙</span>
+                </button>
+
+            </header>
+
+
+            <!-- Clock Display -->
+            <div class="clock-display">
+
+                <div
+                    class="time"
+                    id="time"
+                    aria-live="polite"
+                >
+                    00:00
+                </div>
+
+                <div
+                    class="seconds"
+                    id="seconds"
+                >
+                    :00
+                </div>
+
+                <div
+                    class="ampm"
+                    id="ampm"
+                >
+                    AM
+                </div>
+
+            </div>
+
+
+            <!-- Date -->
+            <div class="date-container">
+
+                <div
+                    class="day"
+                    id="day"
+                >
+                    Monday
+                </div>
+
+                <div
+                    class="date"
+                    id="date"
+                >
+                    January 1, 2026
+                </div>
+
+            </div>
+
+
+            <!-- Settings Panel -->
+            <div
+                class="settings-panel"
+                id="settingsPanel"
+                aria-hidden="true"
+            >
+
+                <div class="settings-header">
+
+                    <span>Customize</span>
+
+                    <button
+                        class="close-settings"
+                        id="closeSettings"
+                        type="button"
+                        aria-label="Close settings"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+
+                <!-- Time Format -->
+                <div class="setting-group">
+
+                    <label>
+                        Time Format
+                    </label>
+
+                    <div class="option-buttons">
+
+                        <button
+                            type="button"
+                            class="option-button"
+                            data-format="12"
+                            id="format12"
+                        >
+                            12 HR
+                        </button>
+
+                        <button
+                            type="button"
+                            class="option-button"
+                            data-format="24"
+                            id="format24"
+                        >
+                            24 HR
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Seconds -->
+                <div class="setting-group">
+
+                    <label>
+                        Seconds
+                    </label>
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="secondsToggle"
+                        >
+
+                        <span class="toggle-slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- Theme -->
+                <div class="setting-group">
+
+                    <label>
+                        Theme
+                    </label>
+
+                    <div class="theme-options">
+
+                        <button
+                            type="button"
+                            class="theme-button"
+                            data-theme="midnight"
+                            aria-label="Midnight theme"
+                        ></button>
+
+                        <button
+                            type="button"
+                            class="theme-button"
+                            data-theme="cloud"
+                            aria-label="Cloud theme"
+                        ></button>
+
+                        <button
+                            type="button"
+                            class="theme-button"
+                            data-theme="lavender"
+                            aria-label="Lavender theme"
+                        ></button>
+
+                        <button
+                            type="button"
+                            class="theme-button"
+                            data-theme="sage"
+                            aria-label="Sage theme"
+                        ></button>
+
+                        <button
+                            type="button"
+                            class="theme-button"
+                            data-theme="rose"
+                            aria-label="Rose theme"
+                        ></button>
+
+                        <button
+                            type="button"
+                            class="theme-button"
+                            data-theme="auto"
+                            aria-label="Automatic theme"
+                        >
+                            A
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Display Mode -->
+                <div class="setting-group">
+
+                    <label>
+                        Display
+                    </label>
+
+                    <div class="option-buttons">
+
+                        <button
+                            type="button"
+                            class="option-button"
+                            data-mode="normal"
+                            id="normalMode"
+                        >
+                            Normal
+                        </button>
+
+                        <button
+                            type="button"
+                            class="option-button"
+                            data-mode="minimal"
+                            id="minimalMode"
+                        >
+                            Minimal
+                        </button>
+
+                        <button
+                            type="button"
+                            class="option-button"
+                            data-mode="glass"
+                            id="glassMode"
+                        >
+                            Glass
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Footer -->
+            <footer class="clock-footer">
+
+                <span>
+                    Made by
+                    <strong>
+                        Bobo Technologies Limited
+                    </strong>
+                </span>
+
+            </footer>
+
+        </section>
+
+    </main>
+
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>
